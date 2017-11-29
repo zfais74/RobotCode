@@ -66,19 +66,35 @@ void motor() {
     switch(state) {
         case 0:
            Serial.println("Turn move forward");
-           leftMotor.write(140);
-           rightMotor.write(40);
+           moveForward();
          break;
+         
         case 1:
             Serial.println("Turn move back");
             leftMotor.write(40);
             rightMotor.write(140);
           
           break;
-        case 3:
+
+        case 2:
+            Serial.println("Left bumper pressed");
+            moveBack(40, 140);
+          break;
+
+          case 4:
+            Serial.println("Right bumper pressed");
+            moveBack(140, 40);
+          break;
+
+          case 5:
+            wait(); 
+
+            break;
+
+        
+        case 6:
           Serial.println("Bump");
-          leftMotor.write(90);
-          rightMotor.write(90);
+          halt();
           break;
       }
   }
@@ -117,3 +133,21 @@ void bumpers(){
 void search(){
   sensorMotor.write(45); 
  }
+
+void moveForward() {
+  leftMotor.write(140);
+  rightMotor.write(40);
+ }
+
+void halt(){
+  leftMotor.write(90);
+  rightMotor.write(90);
+  }
+ void moveBack(int leftMotorDeg, int rightMotorDeg) {
+    leftMotor.write(leftMotorDeg);
+    rightMotor.write(rightMotorDeg);
+  }
+
+ boolean wait(){
+      return true;
+    }
